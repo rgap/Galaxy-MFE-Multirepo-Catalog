@@ -1,4 +1,5 @@
 import { useCart } from 'cart/CartContext';
+import { Button } from 'common-components-react';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -57,20 +58,13 @@ const ProductDetails = () => {
             {product.description}
           </p>
           
-          <button
+          <Button
+            variant="success"
+            size="large"
             onClick={handleAddToCart}
-            style={{
-              backgroundColor: '#28a745',
-              color: 'white',
-              border: 'none',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '4px',
-              fontSize: '1rem',
-              cursor: 'pointer'
-            }}
           >
             Add to Cart
-          </button>
+          </Button>
         </div>
       </div>
     </div>
