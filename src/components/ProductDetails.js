@@ -60,7 +60,7 @@ const ProductDetails = () => {
           
           <Button
             variant="success"
-            size="large"
+            size="medium"
             onClick={handleAddToCart}
           >
             Add to Cart
