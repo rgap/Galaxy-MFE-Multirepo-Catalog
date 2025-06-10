@@ -1,35 +1,66 @@
 import { useCart } from "cart/CartContext";
 import { Button } from "mfe-common-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { fetchProduct } from "../services/api";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const { addItem } = useCart();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Mock product data (in a real app, this would come from an API)
-  const product = {
-    id: productId,
-    name: `Product ${productId}`,
-    price: 99.99,
-    description:
-      "This is a detailed description of the product. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-    image: "https://cdn-icons-png.flaticon.com/512/3775/3775364.png",
-  };
+  useEffect(() => {
+    const loadProduct = async () => {
+      try {
+        const data = await fetchProduct(productId);
+        setProduct(data);
+      } catch (error) {
+        console.error("Error loading product:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProduct();
+  }, [productId]);
 
   const handleAddToCart = () => {
-    addItem(product);
+    if (product) {
+      addItem({
+        id: product.id,
+        name: product.title,
+        price: product.price,
+        image: product.image,
+      });
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="container">
+        <p>Loading product...</p>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="container">
+        <p>Product not found</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
       <div className="product-detail-grid">
         <div>
-          <img src={product.image} alt={product.name} className="product-detail-image" />
+          <img src={product.image} alt={product.title} className="product-detail-image" />
         </div>
 
         <div className="product-detail-content">
-          <h1 className="product-detail-title">{product.name}</h1>
+          <h1 className="product-detail-title">{product.title}</h1>
           <p className="product-detail-price">${product.price}</p>
           <p className="product-detail-description">{product.description}</p>
 
