@@ -12,7 +12,8 @@ const ProductDetails = () => {
     id: productId,
     name: `Product ${productId}`,
     price: 99.99,
-    description: "This is a detailed description of the product.",
+    description:
+      "This is a detailed description of the product. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     image: "https://cdn-icons-png.flaticon.com/512/3775/3775364.png",
   };
 
@@ -21,54 +22,22 @@ const ProductDetails = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
-      }}
-    >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "2rem",
-        }}
-      >
+    <div className="container">
+      <div className="product-detail-grid">
         <div>
-          <img
-            src={product.image}
-            alt={product.name}
-            style={{
-              width: "100%",
-              borderRadius: "8px",
-            }}
-          />
+          <img src={product.image} alt={product.name} className="product-detail-image" />
         </div>
 
-        <div>
-          <h1>{product.name}</h1>
-          <p
-            style={{
-              fontSize: "1.5rem",
-              color: "#333",
-              margin: "1rem 0",
-            }}
-          >
-            ${product.price}
-          </p>
-          <p
-            style={{
-              color: "#666",
-              marginBottom: "2rem",
-            }}
-          >
-            {product.description}
-          </p>
+        <div className="product-detail-content">
+          <h1 className="product-detail-title">{product.name}</h1>
+          <p className="product-detail-price">${product.price}</p>
+          <p className="product-detail-description">{product.description}</p>
 
-          <Button variant="success" size="medium" onClick={handleAddToCart}>
-            Add to Cart
-          </Button>
+          <div className="product-detail-actions">
+            <Button variant="success" size="medium" onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
+          </div>
         </div>
       </div>
     </div>
