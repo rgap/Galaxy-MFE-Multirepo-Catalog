@@ -1,5 +1,5 @@
 import { useCart } from "cart/CartContext";
-import { Button } from "common-components-react";
+import { Button } from "mfe-common-components";
 import React from "react";
 import { useParams } from "react-router-dom";
 
